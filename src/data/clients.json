@@ -1,0 +1,16 @@
+{
+  "rose": {
+    "toName": "Rose",
+    "fromName": "Jack",
+    "message": "这是我想对你说的话：虽然我们经历了一些波折，但在我心里，你的位置从未改变。我希望能有一个机会，让我们重新开始。",
+    "music": "/music/rose-song.mp3",
+    "photos": ["/images/rose1.jpg", "/images/rose2.jpg"]
+  },
+  "lily": {
+    "toName": "莉莉",
+    "fromName": "小明",
+    "message": "莉莉，记得我们第一次一起看的电影吗？那时候我就决定要守护你一辈子...",
+    "music": "/music/lily-song.mp3",
+    "photos": ["/images/lily1.jpg"]
+  }
+}

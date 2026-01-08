@@ -63,7 +63,7 @@ export default function LoveLetterPage() {
       </motion.div>
 
       {/* 延迟显示的相册 */}
-      {showGallery && <Gallery />}
+      {showGallery && <Gallery images={["/memory1.jpg", "/memory2.jpg", "/memory3.jpg"]} />}
 
       <footer className="my-12 text-red-400/60 text-sm z-10">
         Waiting for you...
