@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FloatingHearts from '@/components/FloatingHearts';
 import Gallery from '@/components/Gallery';
+import MusicPlayer from '@/components/MusicPlayer';
 
 export default function LoveLetterPage() {
   const [displayedText, setDisplayedText] = useState<string>("");
@@ -24,6 +25,9 @@ export default function LoveLetterPage() {
 
   return (
     <main className="relative flex flex-col items-center min-h-screen p-6 overflow-y-auto">
+      {/* 背景音乐：请确保在 public 文件夹下有 bg-music.mp3 文件 */}
+      <MusicPlayer src="/bg-music.mp3" />
+
       {/* 动态背景 */}
       <FloatingHearts />
 
