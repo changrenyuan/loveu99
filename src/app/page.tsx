@@ -1,79 +1,94 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "致我最爱的人",
-  description: "写给你的话",
-};
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export default function LoveLetter() {
+export default function LoveLetterPage() {
+  const [displayedText, setDisplayedText] = useState<string>("");
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  const fullText: string = "在你离开的日子里，我才发现生活中到处都是你的影子。我想念我们一起走过的街道，想念你的笑容。这份网页是我亲手为你写的代码，每一行都代表我的思念。希望能给我一个机会，让我们重新开始，好吗？";
+
+  // 打字机逻辑
+  useEffect(() => {
+    if (displayedText.length < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, displayedText.length + 1));
+      }, 100); // 调整打字速度
+      return () => clearTimeout(timeout);
+    } else {
+      setIsFinished(true);
+    }
+  }, [displayedText, fullText]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-50 to-pink-100 dark:from-purple-900 dark:via-pink-900 dark:to-purple-900">
-      {/* 背景装饰 */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 text-6xl animate-pulse">✨</div>
-        <div className="absolute top-20 right-20 text-4xl animate-bounce">💕</div>
-        <div className="absolute bottom-20 left-20 text-5xl animate-pulse">🌸</div>
-        <div className="absolute bottom-40 right-10 text-6xl animate-bounce">💖</div>
-        <div className="absolute top-1/2 left-5 text-3xl animate-pulse">✨</div>
-        <div className="absolute top-1/3 right-5 text-4xl animate-bounce">🌟</div>
-      </div>
+    <main className="relative flex flex-col items-center justify-center min-h-screen p-6">
+      {/* 顶部漂浮的心形装饰 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        className="absolute top-10 text-red-300 text-6xl"
+      >
+        ❤
+      </motion.div>
 
-      {/* 主容器 */}
-      <main className="relative z-10 flex min-h-screen items-center justify-center px-4 py-12">
-        <div className="w-full max-w-3xl">
-          {/* 标题 */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-pink-600 dark:text-pink-400 mb-4">
-              致我最爱的人
-            </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-pink-400 to-purple-400 mx-auto rounded-full"></div>
-          </div>
+      {/* 主体信件卡片 */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-xl w-full bg-white/80 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl border border-white"
+      >
+        <motion.h1 
+          className="text-3xl font-bold text-red-500 mb-6 text-center"
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+        >
+          致 [她的名字]
+        </motion.h1>
 
-          {/* 信件内容 */}
-          <div className="bg-white/80 dark:bg-black/60 backdrop-blur-sm rounded-2xl shadow-2xl p-8 md:p-12 mb-8">
-            <div className="space-y-6 text-gray-800 dark:text-gray-200 leading-relaxed">
-              <p className="text-lg md:text-xl">
-                你好，
-              </p>
-
-              <p className="text-lg md:text-xl">
-                提笔写下这些话的时候，我的心里充满了对你的思念。这段时间以来，我一直在反思自己，也在想我们之间的点点滴滴。
-              </p>
-
-              <p className="text-lg md:text-xl">
-                我知道自己有很多不足，可能有时候不够细心，不够体贴，甚至做了一些让你不开心的事。但我想告诉你，你是我在这个世界上最在乎的人，没有任何事情比失去你更让我害怕。
-              </p>
-
-              <p className="text-lg md:text-xl">
-                和你在一起的每一天都是那么美好，你的笑容、你的声音、你的一切都深深印在我心里。那些温暖的时光，是我生命中最珍贵的回忆。
-              </p>
-
-              <p className="text-lg md:text-xl">
-                我愿意为你改变，为你成为更好的人。我知道这需要时间，需要努力，但只要能重新走到你身边，我愿意付出一切。
-              </p>
-
-              <p className="text-lg md:text-xl">
-                如果你还愿意给我一个机会，我会用行动证明我的真心。如果你需要时间思考，我会一直在这里等你。
-              </p>
-
-              <p className="text-lg md:text-xl">
-                不管怎样，我希望你能知道，你在我心里永远占据着最重要的位置。
-              </p>
-
-              <p className="text-2xl font-semibold text-pink-600 dark:text-pink-400 mt-8">
-                爱你的人
-              </p>
-            </div>
-          </div>
-
-          {/* 底部心形装饰 */}
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full shadow-lg hover:scale-110 transition-transform cursor-pointer">
-              <span className="text-5xl">❤️</span>
-            </div>
-          </div>
+        <div className="text-gray-700 text-lg leading-loose min-h-[160px] font-medium">
+          {displayedText}
+          {!isFinished && (
+            <motion.span
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+              className="inline-block w-1 h-6 bg-red-400 ml-1 align-middle"
+            />
+          )}
         </div>
-      </main>
-    </div>
+
+        {/* 底部互动部分 */}
+        <AnimatePresence>
+          {isFinished && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-10 flex flex-col items-center"
+            >
+              <p className="text-sm text-gray-400 mb-4 italic">—— 永远爱你的 [你的名字]</p>
+              
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                animate={{ 
+                  boxShadow: ["0px 0px 0px rgba(239, 68, 68, 0)", "0px 0px 20px rgba(239, 68, 68, 0.4)", "0px 0px 0px rgba(239, 68, 68, 0)"] 
+                }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-10 rounded-full transition-colors"
+                onClick={() => alert("我一直在等你消息。")}
+              >
+                点亮我的心 ❤️
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* 底部装饰 */}
+      <footer className="mt-12 text-red-400/60 text-sm">
+        Made with love & code
+      </footer>
+    </main>
   );
 }
